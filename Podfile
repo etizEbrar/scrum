@@ -6,7 +6,7 @@ target 'scrum' do
   use_frameworks!
 
 pod 'Parse'
-
+pod 'FSCalendar'
   # Pods for scrum
 
 end

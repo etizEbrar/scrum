@@ -75,7 +75,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="passwordTextfield" destination="I0q-nz-eMA" id="kyO-3J-8Qq"/>
+                        <outlet property="passwordTextField" destination="I0q-nz-eMA" id="8Yp-io-snH"/>
                         <outlet property="titleLabel" destination="j8D-lv-jro" id="Mve-F5-GRW"/>
                         <outlet property="usernameTextField" destination="bBO-6N-Q5t" id="uMD-g8-DyL"/>
                     </connections>
@@ -91,10 +91,36 @@
                     <view key="view" contentMode="scaleToFill" id="0hL-3J-gag">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlk-Dg-ePY">
+                                <rect key="frame" x="0.0" y="33" width="393" height="44"/>
+                                <items>
+                                    <navigationItem title="Takvim" id="08Z-ee-kaa">
+                                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="YDQ-iu-q18">
+                                            <connections>
+                                                <segue destination="lpn-gb-RVP" kind="show" id="fAK-0v-opD"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9s-se-zdw" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="99" width="393" height="676"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="iC6-hQ-MX6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="O9s-se-zdw" firstAttribute="top" secondItem="nlk-Dg-ePY" secondAttribute="bottom" constant="22" id="MCZ-0X-dO2"/>
+                            <constraint firstItem="O9s-se-zdw" firstAttribute="leading" secondItem="iC6-hQ-MX6" secondAttribute="leading" id="bkb-id-bDu"/>
+                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="trailing" secondItem="iC6-hQ-MX6" secondAttribute="trailing" id="e85-zD-nsz"/>
+                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="top" secondItem="iC6-hQ-MX6" secondAttribute="top" constant="33" id="mWY-z8-hqP"/>
+                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="leading" secondItem="iC6-hQ-MX6" secondAttribute="leading" id="ozi-Ru-Ejv"/>
+                            <constraint firstItem="iC6-hQ-MX6" firstAttribute="trailing" secondItem="O9s-se-zdw" secondAttribute="trailing" id="rNx-0j-1sw"/>
+                            <constraint firstItem="iC6-hQ-MX6" firstAttribute="bottom" secondItem="O9s-se-zdw" secondAttribute="bottom" constant="77" id="rvy-mA-cYH"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="7MF-5k-48h"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlD-rv-fwj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -105,11 +131,12 @@
             <objects>
                 <viewController id="lpn-gb-RVP" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZKF-wX-B70">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="XaI-gg-dim"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Oc6-qS-Q9V"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sZH-n4-f2j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
