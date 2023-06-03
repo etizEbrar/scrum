@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E3EE243070B41780727E9E7F /* Pods_scrum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 686605922CD605224C220E4C /* Pods_scrum.framework */; };
+		E48E97162A2B892800A55FFF /* ShowEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E97152A2B892700A55FFF /* ShowEventViewController.swift */; };
+		E4F1BEA22A27D6770083FC59 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1BEA12A27D6770083FC59 /* CalendarViewController.swift */; };
+		E4F1BEA42A27D6880083FC59 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1BEA32A27D6880083FC59 /* EventViewController.swift */; };
 		E4FFF2422A26518500EDC599 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FFF2412A26518500EDC599 /* AppDelegate.swift */; };
 		E4FFF2442A26518500EDC599 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FFF2432A26518500EDC599 /* SceneDelegate.swift */; };
 		E4FFF2462A26518500EDC599 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FFF2452A26518500EDC599 /* ViewController.swift */; };
@@ -21,6 +24,9 @@
 		287445A4EFE64E0D638926C8 /* Pods-scrum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scrum.release.xcconfig"; path = "Target Support Files/Pods-scrum/Pods-scrum.release.xcconfig"; sourceTree = "<group>"; };
 		686605922CD605224C220E4C /* Pods_scrum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scrum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A1FB6FEAE691BD1E84F1476 /* Pods-scrum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-scrum.debug.xcconfig"; path = "Target Support Files/Pods-scrum/Pods-scrum.debug.xcconfig"; sourceTree = "<group>"; };
+		E48E97152A2B892700A55FFF /* ShowEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowEventViewController.swift; sourceTree = "<group>"; };
+		E4F1BEA12A27D6770083FC59 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		E4F1BEA32A27D6880083FC59 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		E4FFF23E2A26518500EDC599 /* scrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scrum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FFF2412A26518500EDC599 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4FFF2432A26518500EDC599 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +83,9 @@
 				E4FFF2432A26518500EDC599 /* SceneDelegate.swift */,
 				E4FFF2452A26518500EDC599 /* ViewController.swift */,
 				E4FFF2472A26518500EDC599 /* Main.storyboard */,
+				E48E97152A2B892700A55FFF /* ShowEventViewController.swift */,
+				E4F1BEA12A27D6770083FC59 /* CalendarViewController.swift */,
+				E4F1BEA32A27D6880083FC59 /* EventViewController.swift */,
 				E4FFF24A2A26518700EDC599 /* Assets.xcassets */,
 				E4FFF24C2A26518700EDC599 /* LaunchScreen.storyboard */,
 				E4FFF24F2A26518700EDC599 /* Info.plist */,
@@ -209,10 +218,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F1BEA22A27D6770083FC59 /* CalendarViewController.swift in Sources */,
 				E4FFF2562A265E4200EDC599 /* SingUpVC.swift in Sources */,
 				E4FFF2462A26518500EDC599 /* ViewController.swift in Sources */,
 				E4FFF2422A26518500EDC599 /* AppDelegate.swift in Sources */,
 				E4FFF2442A26518500EDC599 /* SceneDelegate.swift in Sources */,
+				E4F1BEA42A27D6880083FC59 /* EventViewController.swift in Sources */,
+				E48E97162A2B892800A55FFF /* ShowEventViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
