@@ -21,17 +21,49 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
 
     
     }
-    
+    // FSCalendarDelegate metotları
+
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-            let eventViewController = storyboard?.instantiateViewController(withIdentifier: "EventViewController") as! EventViewController
-            eventViewController.selectedDate = date
-            navigationController?.pushViewController(eventViewController, animated: true)
-        }
-        
-        func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-            // Etkinlik sayısını belirleyin veya 0 döndürün
-            return 0
-        }
+        // Tarih değerini yıl, ay, gün bileşenlerine dönüştür
+           let selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+
+           // Tarih sorgusu için bir başlangıç ve bitiş tarihi oluştur
+           let startDate = Calendar.current.date(from: selectedDateComponents)!
+           var endDateComponents = selectedDateComponents
+           endDateComponents.day! += 1
+           let endDate = Calendar.current.date(from: endDateComponents)!
+
+           // Seçilen tarihle ilgili etkinlikleri sorgula
+           let query = PFQuery(className: "Event")
+           query.whereKey("date", greaterThanOrEqualTo: startDate)
+           query.whereKey("date", lessThan: endDate)
+           query.findObjectsInBackground { (events, error) in
+               if let error = error {
+                   print("Error retrieving events: \(error.localizedDescription)")
+               } else if let events = events, let firstEvent = events.first {
+                   // Etkinlik detaylarını göster
+                   self.showEventDetailsForEvent(firstEvent)
+               } else {
+                   print("No events on selected date.")
+               }
+           }    }
+
+
+    // FSCalendarDataSource metotları
+
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        // Tarihe göre etkinlik sayısını döndürmek için gerekli işlemleri gerçekleştirin
+        return 0
+    }
+
+    // Yardımcı fonksiyonlar
+
+    func showEventDetailsForDate(_ date: Date) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let showEventVC = storyboard.instantiateViewController(withIdentifier: "ShowEventViewController") as! ShowEventViewController
+        showEventVC.selectedDate = date
+        navigationController?.pushViewController(showEventVC, animated: true)
+    }
 
 
     @IBAction func addButtonClicked(_ sender: Any) {

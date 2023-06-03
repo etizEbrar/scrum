@@ -99,13 +99,13 @@
                                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="YDQ-iu-q18">
                                             <connections>
                                                 <action selector="addButtonClicked:" destination="Aqm-1k-GKU" id="hf1-LT-Ixu"/>
-                                                <segue destination="16b-cG-XLM" kind="presentation" modalPresentationStyle="fullScreen" id="YzZ-nX-GrZ"/>
+                                                <segue destination="16b-cG-XLM" kind="show" id="YzZ-nX-GrZ"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O9s-se-zdw" customClass="FSCalendar">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9s-se-zdw" customClass="FSCalendar">
                                 <rect key="frame" x="0.0" y="99" width="393" height="676"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -113,6 +113,7 @@
                         <viewLayoutGuide key="safeArea" id="iC6-hQ-MX6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="O9s-se-zdw" firstAttribute="top" secondItem="nlk-Dg-ePY" secondAttribute="bottom" constant="22" id="0fS-MZ-u1p"/>
                             <constraint firstItem="nlk-Dg-ePY" firstAttribute="trailing" secondItem="iC6-hQ-MX6" secondAttribute="trailing" id="6B6-HJ-o3A"/>
                             <constraint firstItem="nlk-Dg-ePY" firstAttribute="trailing" secondItem="iC6-hQ-MX6" secondAttribute="trailing" id="LTi-5w-rtp"/>
                             <constraint firstItem="nlk-Dg-ePY" firstAttribute="top" secondItem="iC6-hQ-MX6" secondAttribute="top" constant="3" id="Z39-q6-fIY"/>
@@ -137,7 +138,7 @@
             <objects>
                 <viewController id="16b-cG-XLM" customClass="EventViewController" customModule="scrum" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xSd-s1-0QD">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8X-DE-CuL">
@@ -197,16 +198,19 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-0K-tSJ">
-                                <rect key="frame" x="25" y="342" width="343" height="333"/>
+                                <rect key="frame" x="25" y="342" width="343" height="323"/>
                                 <color key="backgroundColor" red="0.87412639499939593" green="0.87412639499939593" blue="0.87412639499939593" alpha="0.39440855687978316" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcQ-6W-K2n">
-                                <rect key="frame" x="133" y="710" width="125.66666666666669" height="61"/>
+                                <rect key="frame" x="133" y="700" width="125.66666666666669" height="61"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonClicked:" destination="16b-cG-XLM" eventType="touchUpInside" id="944-Lp-jfE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="89T-eI-KQN"/>
@@ -265,7 +269,7 @@
         <!--Show Event View Controller-->
         <scene sceneID="Cg8-p8-61y">
             <objects>
-                <viewController id="lpn-gb-RVP" customClass="ShowEventViewController" customModule="scrum" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowEventViewController" id="lpn-gb-RVP" customClass="ShowEventViewController" customModule="scrum" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZKF-wX-B70">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

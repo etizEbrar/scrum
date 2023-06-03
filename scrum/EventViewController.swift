@@ -26,46 +26,56 @@ class EventViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let event = PFObject(className: "Event")
-        event["date"] = datePicker.date
-        event["start_time"] = startDatePicker.date
-        event["end_time"] = endDatePicker.date
-        event["event_type"] = eventTypeText.text
-        event["details"] = detailsText.text
-
-        event.saveInBackground { (success, error) in
-            if success {
-                print("Event saved!")
-            } else {
-                print("Error saving event: \(error?.localizedDescription ?? "Unknown error")")
-            }
-        }
         
-        // Bu kod, seçilen tarihe göre etkinliği getirmek için gerekli
-        func fetchEventForSelectedDate(selectedDate: Date) {
-            let query = PFQuery(className: "Event")
-            query.whereKey("date", equalTo: selectedDate)
-            query.findObjectsInBackground { (objects, error) in
-                if let error = error {
-                    print("Error retrieving event: \(error.localizedDescription)")
-                } else if let events = objects {
-                    // events dizisi, seçilen tarihe ait tüm etkinlikleri içerir
-                    if let event = events.first {
-                        // İlk etkinliği kullanarak UI elemanlarını güncelleyin
-                        // Diğer etkinlik özelliklerini de ilgili UI elemanlarına ayarlayabilirsiniz
-                    } else {
-                        print("No event found for selected date.")
-                    }
-                }
-            }
-        }
-
+        datePicker.datePickerMode = .date
+        startDatePicker.datePickerMode = .time
+        endDatePicker.datePickerMode = .time
 
         
     }
     
-  
-
     
+    
+    
+    
+    @IBAction func saveButtonClicked(_ sender: Any) {
+        let eventDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: datePicker.date)
+        let eventDate = Calendar.current.date(from: eventDateComponents)
+        let event = PFObject(className: "Event")
+        event["date"] = eventDate
+        event["start_time"] = startDatePicker.date
+        event["end_time"] = endDatePicker.date
+        event["event_type"] = eventTypeText.text
+        event["details"] = detailsText.text
+        
+        event.saveInBackground { (success, error) in
+            if let error = error {
+                print("Error saving event: \(error.localizedDescription)")
+                // Hata durumunda yapılacak işlemler...
+            } else {
+                print("Event saved!")
+                // Başarılı kaydetme durumunda yapılacak işlemler...
+            }
+        }
+        
+        // Tarih ve saatleri formatlayarak UI elemanlarına atama
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.timeZone = TimeZone.current
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        
+        dateLabel.text = dateFormatter.string(from: datePicker.date)
+        startTimeLabel.text = timeFormatter.string(from: startDatePicker.date)
+        endTimeLabel.text = timeFormatter.string(from: endDatePicker.date)
+        
+        // Diğer UI elemanlarını sıfırlama
+        eventTypeText.text = ""
+        detailsText.text = ""
+        eventTypeText.resignFirstResponder()
+        detailsText.resignFirstResponder()
+    }
 }
+    
+
