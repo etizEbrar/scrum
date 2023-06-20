@@ -8,8 +8,13 @@
 import UIKit
 import FSCalendar
 import Parse
+import CoreData
+import EventKit
+import EventKitUI
 
 class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource {
+    
+    let eventStore = EKEventStore()
 
     @IBOutlet weak var calendar: FSCalendar!
    
@@ -22,51 +27,62 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     
     }
     // FSCalendarDelegate metotları
-
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        // Tarih değerini yıl, ay, gün bileşenlerine dönüştür
-           let selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-
-           // Tarih sorgusu için bir başlangıç ve bitiş tarihi oluştur
-           let startDate = Calendar.current.date(from: selectedDateComponents)!
-           var endDateComponents = selectedDateComponents
-           endDateComponents.day! += 1
-           let endDate = Calendar.current.date(from: endDateComponents)!
-
-           // Seçilen tarihle ilgili etkinlikleri sorgula
-           let query = PFQuery(className: "Event")
-           query.whereKey("date", greaterThanOrEqualTo: startDate)
-           query.whereKey("date", lessThan: endDate)
-           query.findObjectsInBackground { (events, error) in
-               if let error = error {
-                   print("Error retrieving events: \(error.localizedDescription)")
-               } else if let events = events, let firstEvent = events.first {
-                   // Etkinlik detaylarını göster
-                   self.showEventDetailsForEvent(firstEvent)
-               } else {
-                   print("No events on selected date.")
+        let query = PFQuery(className: "Event")
+               query.whereKey("date", equalTo: date)
+               query.findObjectsInBackground { (events, error) in
+                   if let error = error {
+                       print("Error retrieving events: \(error.localizedDescription)")
+                   } else if let events = events, let event = events.first {
+                       self.showEventDetailsForEvent(event)
+                   }
                }
-           }    }
+
+       }
+
+ 
 
 
     // FSCalendarDataSource metotları
 
+//    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+//        // Tarihe göre etkinlik sayısını döndürmek için gerekli işlemleri gerçekleştirin
+//        return 0
+//    }
+
+    
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        // Tarihe göre etkinlik sayısını döndürmek için gerekli işlemleri gerçekleştirin
-        return 0
-    }
+           let query = PFQuery(className: "Event")
+           query.whereKey("date", equalTo: date)
+           var eventCount = 0
+           query.findObjectsInBackground { (events, error) in
+               if let error = error {
+                   print("Error retrieving events: \(error.localizedDescription)")
+               } else if let events = events {
+                   eventCount = events.count
+               }
+           }
+           return eventCount
+       }
 
     // Yardımcı fonksiyonlar
 
-    func showEventDetailsForDate(_ date: Date) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let showEventVC = storyboard.instantiateViewController(withIdentifier: "ShowEventViewController") as! ShowEventViewController
-        showEventVC.selectedDate = date
-        navigationController?.pushViewController(showEventVC, animated: true)
-    }
+    func showEventDetailsForEvent(_ event: PFObject) {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let showEventVC = storyboard.instantiateViewController(withIdentifier: "ShowEventViewController") as? ShowEventViewController {
+                showEventVC.event = event
+                navigationController?.pushViewController(showEventVC, animated: true)
+            }
+        }
 
 
     @IBAction func addButtonClicked(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let eventVC = storyboard.instantiateViewController(withIdentifier: "EventViewController") as? EventViewController {
+                    navigationController?.pushViewController(eventVC, animated: true)
+                }
     }
     
+
 }

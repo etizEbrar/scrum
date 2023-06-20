@@ -8,11 +8,13 @@
 import UIKit
 import Parse
 import FSCalendar
+import EventKit
 
 
 class ShowEventViewController: UIViewController {
 
-    var selectedDate: Date?
+    var event: PFObject?
+
 
     @IBOutlet weak var dateLabel: UILabel!
       @IBOutlet weak var startTimeLabel: UILabel!
@@ -20,65 +22,84 @@ class ShowEventViewController: UIViewController {
       @IBOutlet weak var eventTypeLabel: UILabel!
       @IBOutlet weak var detailsLabel: UILabel!
       
-    
+    let eventStore = EKEventStore()
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let selectedDate = selectedDate {
-            showEventDetailsForDate(selectedDate)
-        }
+        if let event = event {
+                    showEventDetailsForEvent(event)
+                }
 
     }
     
     
-    func showEventDetailsForDate(_ date: Date) {
-        let selectedDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-               let startOfDay = Calendar.current.date(from: selectedDateComponents)!
-               let endOfDay = Calendar.current.date(byAdding: DateComponents(day: 1, second: -1), to: startOfDay)!
-               
-               let query = PFQuery(className: "Event")
-               query.whereKey("date", greaterThanOrEqualTo: startOfDay)
-               query.whereKey("date", lessThanOrEqualTo: endOfDay)
-               query.findObjectsInBackground { (events, error) in
-                   if let error = error {
-                       print("Error retrieving events: \(error.localizedDescription)")
-                   } else if let events = events {
-                       if let event = events.first {
-                           self.dateLabel.text = self.formatDate(event["date"] as? Date)
-                           self.startTimeLabel.text = self.formatTime(event["start_time"] as? Date)
-                           self.endTimeLabel.text = self.formatTime(event["end_time"] as? Date)
-                           self.eventTypeLabel.text = event["event_type"] as? String
-                           self.detailsLabel.text = event["details"] as? String
-                       } else {
-                           print("No event found for selected date.")
-                       }
-                   }
-               }
-    }
+      func showEventDetailsForEvent(_ event: PFObject) {
+          dateLabel.text = formatDate(event["date"] as? Date)
+                 startTimeLabel.text = formatTime(event["start_time"] as? Date)
+                 endTimeLabel.text = formatTime(event["end_time"] as? Date)
+                 eventTypeLabel.text = event["event_type"] as? String
+                 detailsLabel.text = event["details"] as? String
+             }
+    func updateEvent(event: PFObject, newTitle: String, newDate: Date) {
+          // Update event properties
+          event["event_type"] = newTitle
+          event["date"] = newDate
+          
+          // Save updated event
+          event.saveInBackground()
+      }
 
-
-
+      func deleteEvent(event: PFObject) {
+          event.deleteInBackground()
+      }
     
     func formatDate(_ date: Date?) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        if let date = date {
-            return dateFormatter.string(from: date)
-        }
-        return ""
+        return date.map { dateFormatter.string(from: $0) } ?? ""
     }
 
     func formatTime(_ time: Date?) -> String {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
-        if let time = time {
-            return timeFormatter.string(from: time)
-        }
-        return ""
+        return time.map { timeFormatter.string(from: $0) } ?? ""
     }
+     
+      
 
+
+    
+//    func showEventDetailsForEvent(_ event: PFObject) {
+//            self.dateLabel.text = self.formatDate(event["date"] as? Date)
+//            self.startTimeLabel.text = self.formatTime(event["start_time"] as? Date)
+//            self.endTimeLabel.text = self.formatTime(event["end_time"] as? Date)
+//            self.eventTypeLabel.text = event["event_type"] as? String
+//            self.detailsLabel.text = event["details"] as? String
+//        }
+//
+//
+//    func formatDate(_ date: Date?) -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd/MM/yyyy"
+//        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+//        if let date = date {
+//            return dateFormatter.string(from: date)
+//        }
+//        return ""
+//    }
+//
+//    func formatTime(_ time: Date?) -> String {
+//        let timeFormatter = DateFormatter()
+//        timeFormatter.dateFormat = "HH:mm"
+//        if let time = time {
+//            return timeFormatter.string(from: time)
+//        }
+//        return ""
+//    }
+//
 
 }

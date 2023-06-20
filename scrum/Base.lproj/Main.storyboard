@@ -87,13 +87,14 @@
         <!--Calendar View Controller-->
         <scene sceneID="mTU-6C-D0Z">
             <objects>
-                <viewController id="Aqm-1k-GKU" customClass="CalendarViewController" customModule="scrum" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CalendarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Aqm-1k-GKU" customClass="CalendarViewController" customModule="scrum" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0hL-3J-gag">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlk-Dg-ePY">
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nlk-Dg-ePY">
                                 <rect key="frame" x="0.0" y="33" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Takvim" id="08Z-ee-kaa">
                                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="YDQ-iu-q18">
@@ -105,28 +106,18 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9s-se-zdw" customClass="FSCalendar">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O9s-se-zdw" customClass="FSCalendar">
                                 <rect key="frame" x="0.0" y="99" width="393" height="676"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iC6-hQ-MX6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="O9s-se-zdw" firstAttribute="top" secondItem="nlk-Dg-ePY" secondAttribute="bottom" constant="22" id="0fS-MZ-u1p"/>
-                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="trailing" secondItem="iC6-hQ-MX6" secondAttribute="trailing" id="6B6-HJ-o3A"/>
-                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="trailing" secondItem="iC6-hQ-MX6" secondAttribute="trailing" id="LTi-5w-rtp"/>
-                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="top" secondItem="iC6-hQ-MX6" secondAttribute="top" constant="3" id="Z39-q6-fIY"/>
-                            <constraint firstItem="O9s-se-zdw" firstAttribute="leading" secondItem="iC6-hQ-MX6" secondAttribute="leading" id="bkb-id-bDu"/>
-                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="leading" secondItem="iC6-hQ-MX6" secondAttribute="leading" id="cqK-PY-1R9"/>
-                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="top" secondItem="iC6-hQ-MX6" secondAttribute="top" constant="33" id="lp8-Y5-yTk"/>
-                            <constraint firstItem="nlk-Dg-ePY" firstAttribute="leading" secondItem="iC6-hQ-MX6" secondAttribute="leading" id="mR4-6u-7gk"/>
-                            <constraint firstItem="iC6-hQ-MX6" firstAttribute="trailing" secondItem="O9s-se-zdw" secondAttribute="trailing" id="rNx-0j-1sw"/>
-                            <constraint firstItem="iC6-hQ-MX6" firstAttribute="bottom" secondItem="O9s-se-zdw" secondAttribute="bottom" constant="77" id="rvy-mA-cYH"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="calendar" destination="O9s-se-zdw" id="Fkr-Ho-6yX"/>
+                        <segue destination="lpn-gb-RVP" kind="show" identifier="showEventVC" id="8eN-Oe-OvA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlD-rv-fwj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -269,13 +260,13 @@
         <!--Show Event View Controller-->
         <scene sceneID="Cg8-p8-61y">
             <objects>
-                <viewController storyboardIdentifier="ShowEventViewController" id="lpn-gb-RVP" customClass="ShowEventViewController" customModule="scrum" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowEventViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lpn-gb-RVP" customClass="ShowEventViewController" customModule="scrum" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZKF-wX-B70">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="60B-bm-nyE">
-                                <rect key="frame" x="22" y="92" width="349" height="21"/>
+                                <rect key="frame" x="22" y="33" width="349" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="KmZ-FF-iWq"/>
                                 </constraints>
@@ -284,7 +275,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SK7-Wg-8IT">
-                                <rect key="frame" x="22" y="144" width="349" height="21"/>
+                                <rect key="frame" x="22" y="85" width="349" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="YNp-Fe-pup"/>
                                 </constraints>
@@ -293,7 +284,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="end time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDw-gQ-02I">
-                                <rect key="frame" x="22" y="196" width="349" height="21"/>
+                                <rect key="frame" x="22" y="137" width="349" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="txx-Sn-k6h"/>
                                 </constraints>
@@ -302,7 +293,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="event type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Imz-X6-pRG">
-                                <rect key="frame" x="22" y="248" width="349" height="21"/>
+                                <rect key="frame" x="22" y="189" width="349" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Cza-YO-zJp"/>
                                 </constraints>
@@ -311,7 +302,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhQ-uY-p5h">
-                                <rect key="frame" x="22" y="300" width="349" height="260"/>
+                                <rect key="frame" x="22" y="241" width="349" height="343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
